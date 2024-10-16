@@ -1,7 +1,7 @@
 # Helmet Detection Project
 
 **Link**: [Helmet Detection using YOLOv8 on Hugging Face](https://huggingface.co/spaces/Abs6187/Helmet-Detect-model)
-[Helmet Detection using YOLOv8 on Hugging Face](https://github.com/Abs6187/Helmet-Detection/blob/main/Hugging-Face.png?raw=true)
+![Helmet Detection using YOLOv8 on Hugging Face](https://github.com/Abs6187/Helmet-Detection/blob/main/Hugging-Face.png?raw=true)
 ![Helmet Detection Results](https://github.com/meryemsakin/helmet-detection/blob/main/allresults.jpeg)
 
 ## Project Objective
