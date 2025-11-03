@@ -5,8 +5,8 @@ import os
 
 
 
-# Load the trained YOLOv8 model
-model = YOLO("best.pt")
+# Load the trained YOLOv11 model
+model = YOLO("yolov11nbest.pt")
 
 # Define the prediction function
 def predict(image):
@@ -14,14 +14,13 @@ def predict(image):
     results_img = results[0].plot()  # Get image with bounding boxes
     return Image.fromarray(results_img)
 
-# Get example images from the images folder
+# Get example images from the root folder
 def get_example_images():
     examples = []
-    image_folder = "images"
-    for filename in os.listdir(image_folder):
-        if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
-            examples.append(os.path.join(image_folder, filename))
-    return examples
+    for filename in os.listdir("."):
+        if filename.startswith("Sample-Image-") and filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+            examples.append(filename)
+    return sorted(examples)
 
 # Create Gradio interface
 interface = gr.Interface(
@@ -34,4 +33,4 @@ interface = gr.Interface(
 )
 
 # Launch the interface
-interface.launch(share=True)
+interface.launch()
