@@ -28,10 +28,17 @@ elif os.path.exists("yolov11nbest.pt"):
 else:
     raise FileNotFoundError("No model file found. Please ensure 'best.pt' or 'yolov11nbest.pt' exists.")
 
-# Define the prediction function
-def predict(image):
+# Define the prediction function with progress updates
+def predict(image, progress=gr.Progress()):
+    progress(0, desc="Starting detection...")
+
+    progress(0.3, desc="Running AI model (this may take 20-40 seconds on CPU)...")
     results = model(image)  # Run YOLO model on the uploaded image
+
+    progress(0.8, desc="Drawing bounding boxes...")
     results_img = results[0].plot()  # Get image with bounding boxes
+
+    progress(1.0, desc="Done!")
     return Image.fromarray(results_img)
 
 # Get example images from the images folder
@@ -44,14 +51,52 @@ def get_example_images():
                 examples.append(os.path.join(image_folder, filename))
     return examples
 
-# Create Gradio interface
+# Custom CSS for better visual appeal
+custom_css = """
+.progress-bar-wrap {
+    border-radius: 8px !important;
+}
+.progress-bar {
+    background: linear-gradient(90deg, #4CAF50, #2196F3) !important;
+}
+"""
+
+# Create Gradio interface with better UX
 interface = gr.Interface(
     fn=predict,
-    inputs=gr.Image(type="pil"),
-    outputs=gr.Image(type="pil"),
-    title=f"Helmet Detection with YOLO",
-    description=f"Upload an image to detect helmets. **Currently using: {model_name}**",
-    examples=get_example_images()
+    inputs=gr.Image(type="pil", label="📤 Upload Image"),
+    outputs=gr.Image(type="pil", label="🎯 Detection Result"),
+    title="🪖 Helmet Detection with YOLO",
+    description=f"""
+    **Currently using: {model_name}**
+
+    Upload an image to detect helmets and safety equipment. The AI will identify:
+    - ✅ People wearing helmets (accept-Helmet-)
+    - ❌ People not wearing helmets (non-Helmet-)
+
+    ⏱️ **Please be patient**: Detection takes 20-40 seconds on CPU. Watch the progress bar below!
+    """,
+    article="""
+    ### 📊 About This Model
+    This app uses YOLOv8/YOLOv11 for real-time helmet detection in construction and workplace safety scenarios.
+
+    **Tips for best results:**
+    - Use clear, well-lit images
+    - Ensure people are visible in the frame
+    - Works best with construction site or workplace photos
+
+    **Performance:** Running on CPU (free tier), so inference takes ~30 seconds per image.
+
+    ### 🚀 While you wait...
+    - Try the example images below to see pre-cached results
+    - Read about YOLO object detection: [Ultralytics Docs](https://docs.ultralytics.com)
+    - Star the repo if you find this useful!
+    """,
+    examples=get_example_images(),
+    cache_examples=False,  # Disable caching to speed up startup and reduce storage
+    allow_flagging="never",
+    theme=gr.themes.Soft(),
+    css=custom_css
 )
 
 # Launch the interface
