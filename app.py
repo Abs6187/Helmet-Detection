@@ -1,7 +1,16 @@
+import os
+import torch
+
+# CRITICAL: Redirect cache to temporary storage to avoid hitting storage limits
+os.environ['TORCH_HOME'] = '/tmp/torch_cache'
+os.environ['HF_HOME'] = '/tmp/huggingface_cache'
+os.environ['TRANSFORMERS_CACHE'] = '/tmp/transformers_cache'
+os.environ['TMPDIR'] = '/tmp'
+torch.hub.set_dir('/tmp/torch_hub')
+
 import gradio as gr
 from ultralytics import YOLO
 from PIL import Image
-import os
 
 # Load models with priority to YOLOv8
 # Try to load YOLOv8 model first, fall back to YOLOv11 if not available
@@ -25,13 +34,15 @@ def predict(image):
     results_img = results[0].plot()  # Get image with bounding boxes
     return Image.fromarray(results_img)
 
-# Get example images from the root folder
+# Get example images from the images folder
 def get_example_images():
     examples = []
-    for filename in os.listdir("."):
-        if filename.startswith("Sample-Image-") and filename.lower().endswith(('.png', '.jpg', '.jpeg')):
-            examples.append(filename)
-    return sorted(examples)
+    image_folder = "images"
+    if os.path.exists(image_folder):
+        for filename in os.listdir(image_folder):
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+                examples.append(os.path.join(image_folder, filename))
+    return examples
 
 # Create Gradio interface
 interface = gr.Interface(
