@@ -25,13 +25,15 @@ def predict(image):
     results_img = results[0].plot()  # Get image with bounding boxes
     return Image.fromarray(results_img)
 
-# Get example images from the root folder
+# Get example images from the images folder
 def get_example_images():
     examples = []
-    for filename in os.listdir("."):
-        if filename.startswith("Sample-Image-") and filename.lower().endswith(('.png', '.jpg', '.jpeg')):
-            examples.append(filename)
-    return sorted(examples)
+    image_folder = "images"
+    if os.path.exists(image_folder):
+        for filename in os.listdir(image_folder):
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+                examples.append(os.path.join(image_folder, filename))
+    return examples
 
 # Create Gradio interface
 interface = gr.Interface(
