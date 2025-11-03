@@ -1,12 +1,3 @@
 ultralytics
-gradio
+gradio>=4.0.0
 Pillow
-torch
-torchvision
-opencv-python-headless
-numpy
-pyyaml
-requests
-scipy
-tqdm
-matplotlib
