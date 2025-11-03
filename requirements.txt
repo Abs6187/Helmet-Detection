@@ -10,3 +10,4 @@ requests
 scipy
 tqdm
 matplotlib
+huggingface-hub<0.20.0
