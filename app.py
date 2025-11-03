@@ -87,8 +87,12 @@ interface = gr.Interface(
 
     **Performance:** Running on CPU (free tier), so inference takes ~30 seconds per image.
 
+    ### ⭐ Advanced Version Available!
+    Check out the **[Helmet + License Plate Detection](https://huggingface.co/spaces/Abs6187/Helmet-License-Plate-Detection)** -
+    an upgraded version that detects BOTH helmets AND license plates!
+
     ### 🚀 While you wait...
-    - Try the example images below to see pre-cached results
+    - Try the example images below
     - Read about YOLO object detection: [Ultralytics Docs](https://docs.ultralytics.com)
     - Star the repo if you find this useful!
     """,

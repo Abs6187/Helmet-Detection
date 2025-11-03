@@ -1,6 +1,12 @@
 # Helmet Detection Project
 
-**Link**: [Helmet Detection using YOLOv8 on Hugging Face](https://huggingface.co/spaces/Abs6187/Helmet-Detect-model)
+## 🚀 Live Demos
+
+**Basic Version**: [Helmet Detection using YOLOv8 on Hugging Face](https://huggingface.co/spaces/Abs6187/Helmet-Detect-model)
+
+**⭐ Advanced Version**: [Helmet + License Plate Detection (Updated Project)](https://huggingface.co/spaces/Abs6187/Helmet-License-Plate-Detection)
+*This is the advanced version that detects both helmets AND license plates - try it out!*
+
 ![Helmet Detection using YOLOv8 on Hugging Face](https://github.com/Abs6187/Helmet-Detection/blob/main/Hugging-Face.png?raw=true)
 ![Helmet Detection Results](https://github.com/meryemsakin/helmet-detection/blob/main/allresults.jpeg)
 
