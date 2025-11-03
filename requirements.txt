@@ -1,3 +1,12 @@
 ultralytics
 gradio
 Pillow
+torch
+torchvision
+opencv-python-headless
+numpy
+pyyaml
+requests
+scipy
+tqdm
+matplotlib
