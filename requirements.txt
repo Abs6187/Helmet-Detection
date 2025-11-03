@@ -1,4 +1,3 @@
 ultralytics
-gradio
+gradio>=4.0.0
 Pillow
-huggingface-hub==0.19.4
