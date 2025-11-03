@@ -3,14 +3,25 @@ from ultralytics import YOLO
 from PIL import Image
 import os
 
+# Load models with priority to YOLOv8
+# Try to load YOLOv8 model first, fall back to YOLOv11 if not available
+model = None
+model_name = ""
 
-
-# Load the trained YOLOv11 model
-model = YOLO("yolov11nbest.pt")
+if os.path.exists("best.pt"):
+    model = YOLO("best.pt")
+    model_name = "YOLOv8 (best.pt)"
+    print("✓ Loaded YOLOv8 model (best.pt)")
+elif os.path.exists("yolov11nbest.pt"):
+    model = YOLO("yolov11nbest.pt")
+    model_name = "YOLOv11 (yolov11nbest.pt)"
+    print("✓ Loaded YOLOv11 model (yolov11nbest.pt)")
+else:
+    raise FileNotFoundError("No model file found. Please ensure 'best.pt' or 'yolov11nbest.pt' exists.")
 
 # Define the prediction function
 def predict(image):
-    results = model(image)  # Run YOLOv8 model on the uploaded image
+    results = model(image)  # Run YOLO model on the uploaded image
     results_img = results[0].plot()  # Get image with bounding boxes
     return Image.fromarray(results_img)
 
@@ -24,11 +35,11 @@ def get_example_images():
 
 # Create Gradio interface
 interface = gr.Interface(
-    fn=predict, 
-    inputs=gr.Image(type="pil"), 
+    fn=predict,
+    inputs=gr.Image(type="pil"),
     outputs=gr.Image(type="pil"),
-    title="Helmet Detection with YOLOv8",
-    description="Upload an image to detect helmets.",
+    title=f"Helmet Detection with YOLO",
+    description=f"Upload an image to detect helmets. **Currently using: {model_name}**",
     examples=get_example_images()
 )
 
