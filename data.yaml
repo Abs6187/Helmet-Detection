@@ -1,0 +1,13 @@
+names:
+- accept-Helmet-
+- non-Helmet-
+nc: 2
+roboflow:
+  license: CC BY 4.0
+  project: helmet-uv98h
+  url: https://universe.roboflow.com/mawada-zaki-qy0xq/helmet-uv98h/dataset/2
+  version: 2
+  workspace: mawada-zaki-qy0xq
+test: ../test/images
+train: ../train/images
+val: ../valid/images
